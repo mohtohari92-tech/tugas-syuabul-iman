@@ -1,0 +1,595 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>:root{color-scheme:light}body{margin:0}[hidden]{display:none!important}img{max-width:100%}</style>
+<title>Tujuh Puluh Tujuh Cabang</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Source+Sans+3:wght@400;600;700&display=swap">
+<style>
+/* Layout concept: satu kolom tunggal. Hero memuat 77 titik (30 hati, 7 lisan, 40 badan) yang menyala sesuai skor siswa; lima bagian tugas mengalir di bawahnya. */
+:root{
+  --bg:#f3f7f5; --surface:#ffffff; --soft:#e7f0ec; --fg:#13302b; --muted:#53706a; --line:#d2dfda;
+  --accent:#0c6a5b; --accent-ink:#ffffff;
+  --hati:#0f766e; --lisan:#c9801a; --badan:#4a5bb5; --dot-off:#d9e5e0;
+  --good:#17703d; --good-bg:#e0f2e7; --bad:#b33524; --bad-bg:#fbe8e4;
+  --f-display:"Bricolage Grotesque","Trebuchet MS",system-ui,sans-serif;
+  --f-body:"Source Sans 3",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-ar:"Amiri","Scheherazade New","Traditional Arabic",serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0c1a18; --surface:#132624; --soft:#1a302d; --fg:#e5f0ed; --muted:#9bb4ae; --line:#27433f;
+    --accent:#4cc9b0; --accent-ink:#07201c;
+    --hati:#3fc2ad; --lisan:#f0b24a; --badan:#97a4ff; --dot-off:#244240;
+    --good:#6fd89a; --good-bg:#16352a; --bad:#ff907c; --bad-bg:#3b2019;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0c1a18; --surface:#132624; --soft:#1a302d; --fg:#e5f0ed; --muted:#9bb4ae; --line:#27433f;
+  --accent:#4cc9b0; --accent-ink:#07201c;
+  --hati:#3fc2ad; --lisan:#f0b24a; --badan:#97a4ff; --dot-off:#244240;
+  --good:#6fd89a; --good-bg:#16352a; --bad:#ff907c; --bad-bg:#3b2019;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:16px;line-height:1.55;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 56px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.wrap{max-width:780px;margin:0 auto}
+h1,h2,h3{font-family:var(--f-display);line-height:1.15;text-wrap:balance;margin:0}
+p{margin:0}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+
+/* sticky header */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--bg);border-bottom:1px solid var(--line);padding-block:10px 8px}
+.top-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{font-family:var(--f-display);font-weight:800;font-size:1.05rem;letter-spacing:.01em}
+.pill{font-variant-numeric:tabular-nums;font-weight:700;font-size:.9rem;background:var(--soft);border:1px solid var(--line);border-radius:999px;padding:3px 12px}
+.steps{display:flex;gap:6px;margin-top:8px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none}
+.steps::-webkit-scrollbar{display:none}
+.steps button{flex:0 0 auto;border:1px solid var(--line);background:transparent;border-radius:999px;padding:4px 12px;font-size:.88rem;font-weight:600;color:var(--muted);cursor:pointer}
+.steps button:hover{border-color:var(--accent);color:var(--fg)}
+.steps button.done{color:var(--good);border-color:var(--good)}
+.steps button.done::after{content:" \2713"}
+
+/* hero */
+.hero{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:32px;align-items:center;padding-block:36px 24px}
+.eyebrow{font-size:.78rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+h1{font-size:clamp(2rem,6.4vw,3.1rem);font-weight:800;margin-top:10px}
+.lead{margin-top:14px;color:var(--muted);font-size:1.08rem;max-width:34em}
+.tree{min-width:0}
+.dots{display:grid;grid-template-columns:repeat(11,1fr);gap:6px;max-width:360px}
+.dot{aspect-ratio:1;border-radius:50%;background:var(--dot-off);transform:scale(.78);transition:background .35s,transform .35s}
+.dot.lit{transform:scale(1)}
+.dot.lit.h{background:var(--hati)}.dot.lit.l{background:var(--lisan)}.dot.lit.b{background:var(--badan)}
+.legend{list-style:none;padding:0;margin:14px 0 0;display:flex;flex-wrap:wrap;gap:6px 16px;font-size:.88rem;color:var(--muted)}
+.legend li{display:flex;align-items:center;gap:6px}
+.legend i{width:10px;height:10px;border-radius:50%;display:inline-block}
+.dotnote{margin-top:8px;font-size:.88rem;color:var(--muted);font-variant-numeric:tabular-nums}
+
+/* blocks */
+section.block{padding-top:36px;scroll-margin-top:112px}
+section.block>h2{font-size:clamp(1.5rem,4.4vw,2rem);font-weight:800;margin-top:6px}
+.sub{color:var(--muted);margin-top:8px;max-width:38em}
+.stack{display:grid;gap:14px;margin-top:18px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px;min-width:0}
+.card h3{font-size:1.15rem;font-weight:700}
+.card p+p{margin-top:8px}
+
+/* identity */
+.idrow{display:grid;grid-template-columns:2fr 1fr;gap:12px;margin-top:6px}
+label.f{display:grid;gap:4px;font-size:.88rem;font-weight:600;color:var(--muted)}
+input[type=text],textarea{font:inherit;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px;width:100%}
+textarea{min-height:110px;resize:vertical}
+
+/* materi */
+.three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:12px}
+.three div{background:var(--soft);border-radius:10px;padding:12px}
+.three b{display:block;font-family:var(--f-display)}
+.three span{font-size:.92rem;color:var(--muted)}
+.ar{font-family:var(--f-ar);font-size:1.7rem;line-height:1.9;text-align:right;margin-top:6px}
+.quote{border-left:3px solid var(--accent);padding-left:14px;margin-top:10px;color:var(--fg)}
+details{border-top:1px solid var(--line);padding-block:10px}
+details:first-of-type{border-top:0}
+summary{cursor:pointer;font-weight:700;display:flex;align-items:center;gap:10px}
+summary i{width:12px;height:12px;border-radius:50%;flex:0 0 auto}
+details .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+details .chips span{background:var(--soft);border-radius:999px;padding:3px 12px;font-size:.92rem}
+.count{margin-left:auto;font-variant-numeric:tabular-nums;color:var(--muted);font-weight:600;font-size:.9rem}
+
+/* buttons */
+.btn{background:var(--accent);color:var(--accent-ink);border:0;border-radius:10px;padding:11px 20px;font-weight:700;cursor:pointer}
+.btn:hover{filter:brightness(1.07)}
+.btn.ghost{background:transparent;color:var(--fg);border:1px solid var(--line)}
+.btnrow{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+
+/* quiz + cases */
+.qmeta{font-size:.88rem;font-weight:700;color:var(--muted);font-variant-numeric:tabular-nums}
+.qbar{height:6px;background:var(--soft);border-radius:99px;margin-top:6px;overflow:hidden}
+.qbar i{display:block;height:100%;background:var(--accent);transition:width .3s}
+.q{font-size:1.2rem;margin-top:16px;font-weight:700}
+.opts{display:grid;gap:8px;margin-top:14px}
+.opt{display:flex;gap:12px;align-items:flex-start;text-align:left;width:100%;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:11px 14px;cursor:pointer;color:var(--fg)}
+.opt:hover:not(:disabled){border-color:var(--accent)}
+.opt:disabled{cursor:default;color:var(--fg)}
+.opt .ltr{flex:0 0 auto;width:26px;height:26px;border-radius:50%;background:var(--soft);display:grid;place-items:center;font-weight:700;font-size:.85rem}
+.opt.correct{background:var(--good-bg);border-color:var(--good)}
+.opt.wrong{background:var(--bad-bg);border-color:var(--bad)}
+.fb{margin-top:14px;border-radius:10px;padding:11px 14px;font-size:.98rem}
+.fb.ok{background:var(--good-bg);border-left:4px solid var(--good)}
+.fb.no{background:var(--bad-bg);border-left:4px solid var(--bad)}
+.done-box{text-align:center;padding:10px 0}
+.done-box strong{font-family:var(--f-display);font-size:1.3rem}
+
+/* sort */
+.chip{background:var(--surface);border:1.5px solid var(--line);border-radius:999px;padding:7px 14px;font-weight:600;cursor:grab}
+.chip.sel{border-color:var(--accent);background:var(--soft);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 25%,transparent)}
+.chip.shake{animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.pool{display:flex;flex-wrap:wrap;gap:8px;min-height:48px;padding:12px;background:var(--soft);border-radius:12px}
+.buckets{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:12px}
+.bucket{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px;display:flex;flex-direction:column;gap:8px;min-width:0;min-height:150px}
+.bucket.over{border-color:var(--accent)}
+.bucket button.drop{border:2px dashed var(--line);background:transparent;border-radius:8px;padding:8px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:8px;text-align:left}
+.bucket button.drop i{width:12px;height:12px;border-radius:50%;flex:0 0 auto}
+.bucket button.drop:hover{border-color:var(--accent)}
+.bucket .placed{display:flex;flex-direction:column;gap:6px}
+.bucket .placed span{background:var(--good-bg);border-radius:8px;padding:5px 10px;font-size:.92rem;font-weight:600}
+.msg{margin-top:12px;min-height:1.6em;font-size:.98rem}
+.msg.ok{color:var(--good)}.msg.no{color:var(--bad)}
+
+/* video */
+.plain{margin:10px 0 0;padding-left:20px;display:grid;gap:6px}
+select{font:inherit;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px;width:100%}
+.vform{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;margin-top:6px}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.tags span{background:var(--soft);border-radius:999px;padding:4px 14px;font-weight:700;color:var(--accent)}
+.linkst{font-size:.9rem;margin-top:6px;color:var(--muted)}
+.linkst.ok{color:var(--good)}
+.sechead{font-family:var(--f-display);font-weight:700;margin-top:18px}
+.capbox{min-height:130px;margin-top:6px}
+/* aksi + hasil */
+.pledge{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-top:1px solid var(--line);cursor:pointer}
+.pledge:first-of-type{border-top:0}
+.pledge input{margin-top:5px;width:18px;height:18px;accent-color:var(--accent);flex:0 0 auto}
+.pledge.off{opacity:.5;cursor:default}
+.result{margin-top:18px}
+.rhead{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.big{font-family:var(--f-display);font-weight:800;font-size:3.4rem;line-height:1;color:var(--accent);font-variant-numeric:tabular-nums}
+.big small{font-size:1rem;color:var(--muted);font-weight:600}
+.rows{width:100%;border-collapse:collapse;margin-top:14px;font-size:.96rem}
+.rows td{padding:6px 0;border-top:1px solid var(--line);font-variant-numeric:tabular-nums}
+.rows td:last-child{text-align:right;font-weight:700}
+.copybox{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.82rem;min-height:210px;margin-top:14px}
+.note{font-size:.88rem;color:var(--muted);margin-top:8px}
+
+@media (max-width:720px){
+  .hero{grid-template-columns:minmax(0,1fr);gap:24px;padding-top:26px}
+  .three,.buckets{grid-template-columns:minmax(0,1fr)}
+  .bucket{min-height:0}
+  .idrow,.vform{grid-template-columns:minmax(0,1fr)}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <div class="top-row"><span class="brand">Syuabul Iman</span><span class="pill" id="scorePill">Skor 0/21</span></div>
+    <nav class="steps" aria-label="Bagian tugas">
+      <button data-t="materi">1 Materi</button>
+      <button data-t="kuis" id="nav-kuis">2 Kuis</button>
+      <button data-t="kelompok" id="nav-kelompok">3 Kelompokkan</button>
+      <button data-t="kasus" id="nav-kasus">4 Studi kasus</button>
+      <button data-t="video" id="nav-video">5 Video</button>
+      <button data-t="hasil" id="nav-hasil">6 Aksi dan hasil</button>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div>
+      <p class="eyebrow">Tugas daring · PAI dan Budi Pekerti</p>
+      <h1>Mewujudkan Ketauhidan dengan Syuabul Iman</h1>
+      <p class="lead">Tauhid adalah akarnya. Tujuh puluh tujuh cabang iman adalah wujudnya dalam hati, ucapan, dan perbuatan sehari-hari. Kerjakan enam bagian di bawah dan lihat titik-titik cabang menyala satu per satu.</p>
+    </div>
+    <div class="tree">
+      <div class="dots" id="dots" role="img" aria-label="77 titik cabang iman, menyala sesuai skormu"></div>
+      <ul class="legend">
+        <li><i style="background:var(--hati)"></i>30 hati</li>
+        <li><i style="background:var(--lisan)"></i>7 lisan</li>
+        <li><i style="background:var(--badan)"></i>40 anggota badan</li>
+      </ul>
+      <p class="dotnote" id="dotNote">0 dari 77 titik menyala</p>
+    </div>
+  </section>
+
+  <div class="card">
+    <h3>Identitasmu</h3>
+    <div class="idrow">
+      <label class="f" for="inNama">Nama lengkap<input type="text" id="inNama" autocomplete="name" placeholder="Contoh: Aisyah Putri"></label>
+      <label class="f" for="inKelas">Kelas<input type="text" id="inKelas" placeholder="Contoh: XI TKJ 1"></label>
+    </div>
+  </div>
+
+  <section class="block" id="s-materi">
+    <p class="eyebrow">Bagian 1 dari 6</p>
+    <h2>Baca dulu: akar dan cabang</h2>
+    <p class="sub">Materi ini ringkas. Baca sampai habis, lalu kerjakan bagian berikutnya.</p>
+    <div class="stack">
+      <div class="card">
+        <h3>Tauhid, akar dari semua amal</h3>
+        <p>Tauhid berarti meyakini dan menyatakan bahwa Allah itu Esa. Keyakinan ini dibagi menjadi tiga bagian yang saling menguatkan.</p>
+        <div class="three">
+          <div><b>Rububiyah</b><span>Allah satu-satunya Pencipta, Pemelihara, dan Pengatur alam.</span></div>
+          <div><b>Uluhiyah</b><span>Hanya Allah yang berhak disembah dan dimintai pertolongan.</span></div>
+          <div><b>Asma wa Sifat</b><span>Meyakini nama dan sifat Allah sebagaimana ditetapkan wahyu.</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Hadis tentang cabang iman</h3>
+        <p class="ar" lang="ar" dir="rtl">الإِيمَانُ بِضْعٌ وَسَبْعُونَ شُعْبَةً، وَالْحَيَاءُ شُعْبَةٌ مِنَ الإِيمَانِ</p>
+        <p class="quote">Iman memiliki tujuh puluh sekian cabang, dan malu termasuk salah satunya. Cabang tertinggi adalah ucapan <i>laa ilaaha illallah</i>. Cabang terendah adalah menyingkirkan gangguan dari jalan. (HR. Bukhari dan Muslim)</p>
+        <p>Dari hadis ini kita belajar bahwa iman bukan hanya ucapan. Ia tumbuh menjadi banyak amal, dari yang paling besar sampai yang tampak sepele.</p>
+      </div>
+      <div class="card">
+        <h3>Tiga kelompok cabang iman</h3>
+        <p>Imam al-Baihaqi dalam kitab <i>Syu'abul Iman</i> merinci cabang iman menjadi 77, terbagi dalam tiga kelompok. Ketuk tiap kelompok untuk melihat contohnya.</p>
+        <details open>
+          <summary><i style="background:var(--hati)"></i>Amalan hati <span class="count">30 cabang</span></summary>
+          <div class="chips"><span>Ikhlas</span><span>Tawakal</span><span>Takut kepada Allah</span><span>Cinta kepada Allah</span><span>Sabar</span><span>Syukur</span><span>Malu</span><span>Merasa diawasi Allah</span></div>
+        </details>
+        <details>
+          <summary><i style="background:var(--lisan)"></i>Amalan lisan <span class="count">7 cabang</span></summary>
+          <div class="chips"><span>Mengucap kalimat tauhid</span><span>Membaca Al-Qur'an</span><span>Berzikir</span><span>Berdoa</span><span>Menjauhi ucapan sia-sia</span></div>
+        </details>
+        <details>
+          <summary><i style="background:var(--badan)"></i>Amalan anggota badan <span class="count">40 cabang</span></summary>
+          <div class="chips"><span>Salat</span><span>Puasa</span><span>Zakat dan sedekah</span><span>Bersuci</span><span>Berbakti kepada orang tua</span><span>Menepati janji</span><span>Menyingkirkan gangguan di jalan</span></div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="s-kuis">
+    <p class="eyebrow">Bagian 2 dari 6</p>
+    <h2>Kuis kilat</h2>
+    <p class="sub">Delapan soal, satu poin tiap soal. Jawaban langsung dibahas setelah kamu memilih.</p>
+    <div class="stack"><div class="card" id="quizBox"></div></div>
+  </section>
+
+  <section class="block" id="s-kelompok">
+    <p class="eyebrow">Bagian 3 dari 6</p>
+    <h2>Kelompokkan cabang iman</h2>
+    <p class="sub">Ketuk satu kartu, lalu ketuk kelompok tujuannya. Di komputer kamu juga bisa menyeret kartu. Poin hanya didapat jika kartu langsung benar pada percobaan pertama.</p>
+    <div class="stack"><div class="card" id="sortBox"></div></div>
+  </section>
+
+  <section class="block" id="s-kasus">
+    <p class="eyebrow">Bagian 4 dari 6</p>
+    <h2>Studi kasus</h2>
+    <p class="sub">Pilih tanggapan yang paling mencerminkan iman yang berakar pada tauhid.</p>
+    <div class="stack" id="caseBox"></div>
+  </section>
+
+  <section class="block" id="s-video">
+    <p class="eyebrow">Bagian 5 dari 6</p>
+    <h2>Laporan video di Instagram</h2>
+    <p class="sub">Tunjukkan satu cabang iman lewat video pendek buatanmu sendiri, lalu unggah dengan tagar yang ditentukan.</p>
+    <div class="stack">
+      <div class="card">
+        <h3>Ketentuan video</h3>
+        <ul class="plain">
+          <li>Durasi 30 sampai 90 detik, boleh format Reels.</li>
+          <li>Perlihatkan dirimu melakukan satu aksi nyata dari cabang iman, misalnya menyingkirkan gangguan di jalan, berbakti kepada orang tua, berzikir, atau membaca Al-Qur'an.</li>
+          <li>Katakan dengan kata-katamu sendiri: cabang iman apa yang kamu tunjukkan, dan bagaimana ia bersumber dari tauhid.</li>
+          <li>Yang direkam adalah dirimu sendiri, bukan orang lain. Jangan tampilkan alamat rumah atau data pribadi.</li>
+          <li>Cantumkan kedua tagar ini di keterangan unggahan:</li>
+        </ul>
+        <div class="tags"><span>#pandaga_kediri</span><span>#MohAminTohari</span></div>
+      </div>
+      <div class="card" id="videoBox"></div>
+    </div>
+  </section>
+
+  <section class="block" id="s-hasil">
+    <p class="eyebrow">Bagian 6 dari 6</p>
+    <h2>Aksi tujuh hari dan refleksi</h2>
+    <p class="sub">Iman yang hidup tampak dalam kebiasaan. Pilih sampai tiga cabang iman yang akan kamu latih selama tujuh hari ke depan.</p>
+    <div class="stack">
+      <div class="card" id="pledgeBox"></div>
+      <div class="card">
+        <h3>Refleksi singkat</h3>
+        <p class="note" style="margin-top:4px">Cabang iman mana yang paling ingin kamu perkuat, dan apa langkah pertamamu?</p>
+        <label class="f" for="inRefleksi" style="margin-top:10px">Tulis dengan kata-katamu sendiri<textarea id="inRefleksi" placeholder="Contoh: Saya ingin melatih jujur, mulai dengan tidak menyalin tugas teman."></textarea></label>
+      </div>
+      <div><button class="btn" id="btnResult">Lihat hasilku</button></div>
+    </div>
+    <div class="result" id="result" hidden></div>
+  </section>
+</div>
+
+<script>
+(function(){
+  var $=function(s,r){return (r||document).querySelector(s)};
+  var $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+  var esc=function(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})};
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var TOTAL=21, DOTS=77;
+  var GROUP={hati:'Amalan hati',lisan:'Amalan lisan',badan:'Amalan anggota badan'};
+
+  var QUIZ=[
+    {q:'Mengesakan Allah dalam semua ibadah, sehingga hanya Dia yang disembah, disebut tauhid …',o:['Rububiyah','Uluhiyah','Asma wa Sifat','Muamalah'],a:1,
+     w:'Tauhid uluhiyah berarti mengesakan Allah dalam ibadah. Rububiyah menyangkut Allah sebagai Pencipta dan Pengatur, sedangkan Asma wa Sifat menyangkut nama dan sifat-Nya.'},
+    {q:'Menurut hadis tentang cabang iman, cabang yang paling tinggi adalah …',o:['Bersedekah','Mengucapkan laa ilaaha illallah','Menuntut ilmu','Menjenguk orang sakit'],a:1,
+     w:'Kalimat tauhid menjadi puncak cabang iman karena ia pangkal dari seluruh keyakinan dan amal.'},
+    {q:'Cabang iman yang paling rendah dalam hadis yang sama adalah …',o:['Menyingkirkan gangguan dari jalan','Berpuasa sunah','Membaca doa','Menghafal Al-Qur\'an'],a:0,
+     w:'Menyingkirkan gangguan dari jalan tampak sederhana, tetapi Nabi menjadikannya bagian dari iman.'},
+    {q:'Imam al-Baihaqi dalam kitab Syu\'abul Iman merinci cabang iman menjadi …',o:['33 cabang','63 cabang','77 cabang','99 cabang'],a:2,
+     w:'Hadis menyebut "tujuh puluh sekian". Al-Baihaqi merincinya menjadi 77: 30 amalan hati, 7 amalan lisan, dan 40 amalan anggota badan.'},
+    {q:'Menurut hadis, sikap malu termasuk …',o:['Sifat bawaan yang tidak ada hubungannya dengan iman','Salah satu cabang iman','Tanda kelemahan seseorang','Amalan khusus orang dewasa'],a:1,
+     w:'Malu yang mencegah kita dari perbuatan buruk disebut langsung sebagai salah satu cabang iman.'},
+    {q:'Tawakal, ikhlas, dan takut kepada Allah termasuk kelompok amalan …',o:['Hati','Lisan','Anggota badan','Harta'],a:0,
+     w:'Ketiganya terjadi di dalam hati, berupa niat, sikap, dan perasaan kepada Allah.'},
+    {q:'Perilaku yang paling menunjukkan tauhid dalam kehidupan sehari-hari adalah …',o:['Meminta pertolongan kepada benda yang dianggap keramat','Jujur karena yakin Allah Maha Melihat','Rajin ibadah supaya dipuji orang','Menunda salat karena asyik bermain gim'],a:1,
+     w:'Jujur karena yakin diawasi Allah berarti tauhid sudah mengatur perilaku, bukan hanya diucapkan.'},
+    {q:'Hubungan tauhid dengan syuabul iman paling tepat digambarkan seperti …',o:['Akar dan cabang pohon: akar yang kuat menumbuhkan cabang yang tampak dalam amal','Dua hal yang tidak saling berkaitan','Cabang yang lebih penting daripada akarnya','Tauhid hanya soal ucapan, cabang hanya soal perasaan'],a:0,
+     w:'Tauhid menjadi akar. Semakin kokoh akarnya, semakin banyak cabang iman yang tumbuh dalam hati, ucapan, dan perbuatan.'}
+  ];
+
+  var SORT=[
+    {id:'s1',t:'Ikhlas',g:'hati'},{id:'s2',t:'Membaca Al-Qur\'an',g:'lisan'},{id:'s3',t:'Salat',g:'badan'},
+    {id:'s4',t:'Tawakal',g:'hati'},{id:'s5',t:'Berzikir',g:'lisan'},{id:'s6',t:'Berbakti kepada orang tua',g:'badan'},
+    {id:'s7',t:'Takut kepada Allah',g:'hati'},{id:'s8',t:'Berdoa',g:'lisan'},{id:'s9',t:'Menyingkirkan gangguan di jalan',g:'badan'}
+  ];
+
+  var CASES=[
+    {s:'Saat ulangan, teman di belakangmu berbisik menawarkan contekan. Guru sedang keluar kelas. Apa yang kamu lakukan?',
+     o:['Menerima, karena tidak ada yang melihat','Menolak dengan sopan karena yakin Allah selalu melihat','Menolak, tetapi hanya karena takut ketahuan guru'],a:1,
+     w:'Merasa diawasi Allah (hati) mewujud dalam kejujuran (badan) dan tutur kata yang sopan (lisan). Pada pilihan ketiga, yang menggerakkan hanyalah rasa takut pada manusia.'},
+    {s:'Di jalan menuju sekolah ada pecahan kaca yang bisa melukai pengendara sepeda. Apa yang kamu lakukan?',
+     o:['Membiarkannya, itu bukan tugasmu','Memotretnya dan mengunggah supaya ramai ditonton','Menyingkirkannya ke tempat yang aman'],a:2,
+     w:'Inilah cabang iman terendah yang disebut hadis: menyingkirkan gangguan dari jalan. Kecil, tetapi bernilai karena menjaga keselamatan orang lain.'},
+    {s:'Kamu gagal lolos seleksi lomba padahal sudah berlatih keras. Bagaimana sikapmu?',
+     o:['Bersabar, mengevaluasi diri, lalu berserah kepada Allah setelah berusaha','Menyalahkan juri dan berhenti berlatih','Merasa Allah tidak adil kepadamu'],a:0,
+     w:'Sabar dan tawakal adalah amalan hati. Tawakal berarti berusaha sungguh-sungguh dahulu, lalu menyerahkan hasilnya kepada Allah.'},
+    {s:'Kamu rajin salat berjemaah di sekolah. Teman-teman mulai memuji, dan hatimu terasa senang karena pujian itu. Apa langkahmu?',
+     o:['Memamerkan ibadah supaya makin dipuji','Berhenti salat berjemaah agar tidak dipuji','Meluruskan niat kembali supaya salat hanya karena Allah'],a:2,
+     w:'Ikhlas dijaga dengan terus memperbarui niat. Berhenti beribadah bukan solusi, dan pamer justru merusak nilai ibadah.'}
+  ];
+
+  var PLEDGES=[
+    'Membaca Al-Qur\'an minimal satu halaman setiap hari','Berzikir singkat setelah salat','Salat tepat waktu','Jujur dalam tugas dan ulangan',
+    'Berbakti kepada orang tua dengan membantu pekerjaan rumah','Menyingkirkan gangguan di jalan atau di kelas','Menjaga ucapan dan tidak berkata kasar','Bersedekah, sekecil apa pun'
+  ];
+
+  var state={quizI:0,quiz:[],wrong:{},done:{},sel:null,sortMsg:'',sortCls:'',cases:[]};
+
+  /* ---------- skor ---------- */
+  function quizScore(){return state.quiz.filter(function(x){return x&&x.ok}).length}
+  function sortScore(){return SORT.filter(function(it){return state.done[it.id]&&!state.wrong[it.id]}).length}
+  function caseScore(){return state.cases.filter(function(x){return x&&x.ok}).length}
+  function total(){return quizScore()+sortScore()+caseScore()}
+
+  /* ---------- titik ---------- */
+  var dotsEl=$('#dots');
+  for(var i=0;i<DOTS;i++){var d=document.createElement('span');d.className='dot '+(i<30?'h':i<37?'l':'b');dotsEl.appendChild(d)}
+  function update(){
+    var t=total();
+    $('#scorePill').textContent='Skor '+t+'/'+TOTAL;
+    var lit=Math.round(t/TOTAL*DOTS);
+    $$('.dot',dotsEl).forEach(function(el,k){el.classList.toggle('lit',k<lit)});
+    $('#dotNote').textContent=lit+' dari '+DOTS+' titik menyala';
+    $('#nav-kuis').classList.toggle('done',state.quizI>=QUIZ.length);
+    $('#nav-kelompok').classList.toggle('done',Object.keys(state.done).length===SORT.length);
+    $('#nav-kasus').classList.toggle('done',state.cases.filter(Boolean).length===CASES.length);
+    $('#nav-video').classList.toggle('done',videoOk());
+  }
+
+  /* ---------- kuis ---------- */
+  function renderQuiz(){
+    var box=$('#quizBox');
+    if(state.quizI>=QUIZ.length){
+      box.innerHTML='<div class="done-box"><strong>Kuis selesai: '+quizScore()+' dari '+QUIZ.length+' benar</strong><p class="note">Lanjut ke bagian berikutnya: kelompokkan cabang iman.</p></div>';
+      update();return;
+    }
+    var q=QUIZ[state.quizI],a=state.quiz[state.quizI],last=state.quizI===QUIZ.length-1;
+    var h='<div class="qmeta">Soal '+(state.quizI+1)+' dari '+QUIZ.length+'</div><div class="qbar"><i style="width:'+(state.quizI/QUIZ.length*100)+'%"></i></div>';
+    h+='<h3 class="q">'+esc(q.q)+'</h3><div class="opts">';
+    q.o.forEach(function(t,k){
+      var c='';if(a){if(k===q.a)c=' correct';else if(k===a.k)c=' wrong'}
+      h+='<button class="opt'+c+'" data-k="'+k+'"'+(a?' disabled':'')+'><span class="ltr">'+'ABCD'[k]+'</span><span>'+esc(t)+'</span></button>';
+    });
+    h+='</div>';
+    if(a){
+      h+='<div class="fb '+(a.ok?'ok':'no')+'"><strong>'+(a.ok?'Tepat.':'Belum tepat.')+'</strong> '+esc(q.w)+'</div>';
+      h+='<div class="btnrow"><button class="btn" id="qNext">'+(last?'Selesai':'Soal berikutnya')+'</button></div>';
+    }
+    box.innerHTML=h;
+    var nb=$('#qNext');if(nb)nb.focus({preventScroll:true});
+    update();
+  }
+  $('#quizBox').addEventListener('click',function(e){
+    var b=e.target.closest('.opt');
+    if(b&&!state.quiz[state.quizI]){var k=+b.dataset.k;state.quiz[state.quizI]={k:k,ok:k===QUIZ[state.quizI].a};renderQuiz();return}
+    if(e.target.closest('#qNext')){state.quizI++;renderQuiz()}
+  });
+
+  /* ---------- kelompokkan ---------- */
+  function renderSort(){
+    var box=$('#sortBox'),pool=SORT.filter(function(it){return !state.done[it.id]});
+    var h='<p class="note" style="margin:0 0 8px">Kartu yang belum dikelompokkan</p><div class="pool" id="pool">';
+    pool.forEach(function(it){h+='<button class="chip'+(state.sel===it.id?' sel':'')+'" draggable="true" data-id="'+it.id+'">'+esc(it.t)+'</button>'});
+    if(!pool.length)h+='<span class="note">Semua kartu sudah dikelompokkan.</span>';
+    h+='</div><div class="buckets">';
+    ['hati','lisan','badan'].forEach(function(g){
+      h+='<div class="bucket" data-g="'+g+'"><button class="drop" data-g="'+g+'"><i style="background:var(--'+g+')"></i>'+GROUP[g]+'</button><div class="placed">';
+      SORT.forEach(function(it){if(state.done[it.id]&&it.g===g)h+='<span>'+esc(it.t)+'</span>'});
+      h+='</div></div>';
+    });
+    h+='</div><p class="msg '+state.sortCls+'" id="sortMsg" aria-live="polite">'+esc(state.sortMsg)+'</p>';
+    if(!pool.length)h+='<p><strong>Hasil: '+sortScore()+' dari '+SORT.length+' kartu benar pada percobaan pertama.</strong></p>';
+    box.innerHTML=h;
+    update();
+  }
+  function place(id,g){
+    var it=SORT.filter(function(x){return x.id===id})[0];if(!it||state.done[id])return;
+    if(it.g===g){state.done[id]=true;state.sel=null;state.sortMsg='Tepat. '+it.t+' termasuk '+GROUP[g].toLowerCase()+'.';state.sortCls='ok';renderSort()}
+    else{
+      state.wrong[id]=true;state.sortMsg='Belum tepat. Pikirkan: apakah "'+it.t+'" terjadi lewat keyakinan dan perasaan, lewat ucapan, atau lewat gerakan tubuh?';state.sortCls='no';
+      renderSort();var c=$('.chip[data-id="'+id+'"]');if(c)c.classList.add('shake');
+    }
+  }
+  var sb=$('#sortBox');
+  sb.addEventListener('click',function(e){
+    var c=e.target.closest('.chip'),d=e.target.closest('button.drop');
+    if(c){state.sel=state.sel===c.dataset.id?null:c.dataset.id;state.sortMsg=state.sel?'Kartu dipilih. Sekarang ketuk kelompok tujuannya.':'';state.sortCls='';renderSort();return}
+    if(d){if(state.sel)place(state.sel,d.dataset.g);else{state.sortMsg='Pilih satu kartu dulu, lalu ketuk kelompoknya.';state.sortCls='';renderSort()}}
+  });
+  sb.addEventListener('dragstart',function(e){var c=e.target.closest('.chip');if(c){e.dataTransfer.setData('text/plain',c.dataset.id);e.dataTransfer.effectAllowed='move'}});
+  sb.addEventListener('dragover',function(e){var b=e.target.closest('.bucket');if(b){e.preventDefault();b.classList.add('over')}});
+  sb.addEventListener('dragleave',function(e){var b=e.target.closest('.bucket');if(b)b.classList.remove('over')});
+  sb.addEventListener('drop',function(e){var b=e.target.closest('.bucket');if(b){e.preventDefault();place(e.dataTransfer.getData('text/plain'),b.dataset.g)}});
+
+  /* ---------- studi kasus ---------- */
+  function renderCases(){
+    var h='';
+    CASES.forEach(function(c,ci){
+      var a=state.cases[ci];
+      h+='<div class="card" data-ci="'+ci+'"><div class="qmeta">Kasus '+(ci+1)+' dari '+CASES.length+'</div><h3 class="q" style="margin-top:8px">'+esc(c.s)+'</h3><div class="opts">';
+      c.o.forEach(function(t,k){
+        var cls='';if(a){if(k===c.a)cls=' correct';else if(k===a.k)cls=' wrong'}
+        h+='<button class="opt'+cls+'" data-k="'+k+'"'+(a?' disabled':'')+'><span class="ltr">'+'ABC'[k]+'</span><span>'+esc(t)+'</span></button>';
+      });
+      h+='</div>';
+      if(a)h+='<div class="fb '+(a.ok?'ok':'no')+'"><strong>'+(a.ok?'Tepat.':'Belum tepat.')+'</strong> '+esc(c.w)+'</div>';
+      h+='</div>';
+    });
+    $('#caseBox').innerHTML=h;update();
+  }
+  $('#caseBox').addEventListener('click',function(e){
+    var b=e.target.closest('.opt'),card=e.target.closest('[data-ci]');
+    if(!b||!card)return;var ci=+card.dataset.ci;if(state.cases[ci])return;
+    var k=+b.dataset.k;state.cases[ci]={k:k,ok:k===CASES[ci].a};
+    var y=window.scrollY;renderCases();window.scrollTo(0,y);
+  });
+
+  /* ---------- aksi 7 hari ---------- */
+  function renderPledges(){
+    var h='<h3>Pilih maksimal 3 aksi</h3><p class="note" id="pledgeCount" style="margin:4px 0 8px">Terpilih 0 dari 3</p>';
+    PLEDGES.forEach(function(t,i){h+='<label class="pledge" for="pl'+i+'"><input type="checkbox" id="pl'+i+'" data-i="'+i+'"><span>'+esc(t)+'</span></label>'});
+    $('#pledgeBox').innerHTML=h;
+  }
+  function picked(){return $$('#pledgeBox input:checked').map(function(x){return PLEDGES[+x.dataset.i]})}
+  $('#pledgeBox').addEventListener('change',function(){
+    var n=picked().length;
+    $('#pledgeCount').textContent='Terpilih '+n+' dari 3';
+    $$('#pledgeBox input').forEach(function(x){x.disabled=n>=3&&!x.checked;x.closest('.pledge').classList.toggle('off',x.disabled)});
+  });
+
+  /* ---------- laporan video ---------- */
+  var TAGS=['#pandaga_kediri','#MohAminTohari'];
+  var CABANG=['Ikhlas','Tawakal','Sabar','Syukur','Jujur','Malu berbuat buruk','Membaca Al-Qur\'an','Berzikir','Berdoa','Salat tepat waktu','Berbakti kepada orang tua','Menyingkirkan gangguan di jalan','Bersedekah','Menjaga ucapan'];
+  var VCHECK=['Videoku berdurasi 30 sampai 90 detik','Aku sendiri yang tampil melakukan satu aksi nyata dari cabang iman','Aku menyebut cabang imannya dan kaitannya dengan tauhid','Hanya diriku yang direkam, tanpa orang lain dan tanpa data pribadi','Keterangan unggahan memuat kedua tagar','Video sudah diunggah dan tautannya kutempel di bawah'];
+  var IGRE=/^https?:\/\/(www\.)?instagram\.com\/\S+/i;
+  function linkOk(){var l=$('#inLink');return !!l&&IGRE.test(l.value.trim())}
+  function videoOk(){var b=$('#videoBox');if(!b)return false;return $$('input[data-v]:checked',b).length===VCHECK.length&&linkOk()}
+  function captionText(){
+    var c=$('#inCabang').value,a=$('#inAksi').value.trim();
+    return 'Cabang iman: '+(c||'(pilih cabang iman dulu)')+'\n'+(a?a+'\n':'')+'Tauhid adalah akarnya, amal adalah cabangnya.\nTugas PAI: Mewujudkan Ketauhidan dengan Syuabul Iman\n'+TAGS.join(' ');
+  }
+  function renderVideo(){
+    var h='<h3>Siapkan unggahanmu</h3><div class="vform"><label class="f" for="inCabang">Cabang iman yang kamu tunjukkan<select id="inCabang"><option value="">Pilih satu</option>';
+    CABANG.forEach(function(c){h+='<option>'+esc(c)+'</option>'});
+    h+='</select></label><label class="f" for="inAksi">Aksi yang kamu rekam<input type="text" id="inAksi" placeholder="Contoh: Memungut paku di jalan depan sekolah"></label></div>';
+    h+='<p class="sechead">Keterangan unggahan</p><label class="f" for="outCaption">Salin lalu tempel ke keterangan Instagram<textarea id="outCaption" class="capbox" readonly></textarea></label>';
+    h+='<div class="btnrow" style="margin-top:10px"><button class="btn ghost" id="btnCap">Salin keterangan</button></div><p class="note" id="capNote" aria-live="polite"></p>';
+    h+='<p class="sechead">Daftar periksa sebelum mengunggah</p><div>';
+    VCHECK.forEach(function(t,i){h+='<label class="pledge" for="vc'+i+'"><input type="checkbox" id="vc'+i+'" data-v="'+i+'"><span>'+esc(t)+'</span></label>'});
+    h+='</div><label class="f" for="inLink" style="margin-top:12px">Tautan video Instagram<input type="text" id="inLink" inputmode="url" autocomplete="off" placeholder="https://www.instagram.com/reel/..."></label><p class="linkst" id="linkSt" aria-live="polite">Tempel tautan yang diawali https://www.instagram.com/</p>';
+    $('#videoBox').innerHTML=h;
+    $('#outCaption').value=captionText();
+  }
+  function copyFrom(ta,note,okMsg){
+    var fb=function(){ta.focus();ta.select();var ok=false;try{ok=document.execCommand('copy')}catch(x){}note.textContent=ok?okMsg:'Teks sudah terpilih. Tekan Ctrl+C atau tahan lalu pilih Salin.'};
+    try{if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(ta.value).then(function(){note.textContent=okMsg},fb)}else fb()}catch(x){fb()}
+  }
+  $('#videoBox').addEventListener('input',function(){
+    $('#outCaption').value=captionText();
+    var l=$('#inLink'),s=$('#linkSt'),v=l.value.trim();
+    if(!v){s.textContent='Tempel tautan yang diawali https://www.instagram.com/';s.className='linkst'}
+    else if(linkOk()){s.textContent='Tautan Instagram terdeteksi.';s.className='linkst ok'}
+    else{s.textContent='Tautan belum dikenali. Salin dari menu Bagikan di Instagram.';s.className='linkst'}
+    update();
+  });
+  $('#videoBox').addEventListener('change',update);
+  $('#videoBox').addEventListener('click',function(e){if(e.target.closest('#btnCap'))copyFrom($('#outCaption'),$('#capNote'),'Keterangan tersalin.')});
+  function videoLine(){
+    var c=$('#inCabang').value,a=$('#inAksi').value.trim(),l=$('#inLink').value.trim();
+    return (videoOk()?'selesai':'belum selesai')+'\n  Cabang iman: '+(c||'-')+'\n  Aksi: '+(a||'-')+'\n  Tautan: '+(l||'-')+'\n  Tagar: '+TAGS.join(' ');
+  }
+
+  /* ---------- hasil ---------- */
+  function levelFor(n){
+    if(n>=85)return 'Sangat baik. Akar tauhidmu kuat dan cabangnya mulai tampak.';
+    if(n>=70)return 'Baik. Ulangi bagian yang masih keliru agar lebih mantap.';
+    if(n>=55)return 'Cukup. Baca kembali materi, lalu coba lagi bagian yang belum tepat.';
+    return 'Perlu belajar lagi. Baca materi pelan-pelan, lalu ulangi tugas ini.';
+  }
+  var resetArmed=false,resetTimer=null;
+  function showResult(){
+    var nama=$('#inNama').value.trim(),kelas=$('#inKelas').value.trim(),t=total(),nilai=Math.round(t/TOTAL*100);
+    var pl=picked(),ref=$('#inRefleksi').value.trim();
+    var missing=[];
+    if(state.quizI<QUIZ.length)missing.push('kuis');
+    if(Object.keys(state.done).length<SORT.length)missing.push('kelompokkan');
+    if(state.cases.filter(Boolean).length<CASES.length)missing.push('studi kasus');
+    if(!videoOk())missing.push('laporan video');
+    var txt='TUGAS DARING: Mewujudkan Ketauhidan dengan Syuabul Iman\nNama: '+(nama||'-')+'\nKelas: '+(kelas||'-')+'\nSkor: '+t+'/'+TOTAL+' (nilai '+nilai+')\n- Kuis: '+quizScore()+'/'+QUIZ.length+'\n- Kelompokkan: '+sortScore()+'/'+SORT.length+'\n- Studi kasus: '+caseScore()+'/'+CASES.length+'\nAksi 7 hari: '+(pl.length?'\n  * '+pl.join('\n  * '):'-')+'\nLaporan video: '+videoLine()+'\nRefleksi: '+(ref||'-');
+    var h='<div class="card"><div class="rhead"><div class="big">'+nilai+'<small> / 100</small></div><div style="min-width:0"><h3>'+esc(nama||'Nama belum diisi')+'</h3><p class="note" style="margin-top:2px">'+esc(kelas||'Kelas belum diisi')+'</p></div></div>';
+    h+='<p style="margin-top:12px">'+esc(levelFor(nilai))+'</p>';
+    if(missing.length)h+='<p class="fb no">Bagian yang belum selesai: '+esc(missing.join(', '))+'. Selesaikan dulu agar nilaimu utuh.</p>';
+    if(!nama)h+='<p class="fb no">Isi nama dan kelas di bagian atas agar guru mengenali pekerjaanmu.</p>';
+    h+='<table class="rows"><tr><td>Kuis kilat</td><td>'+quizScore()+' / '+QUIZ.length+'</td></tr><tr><td>Kelompokkan cabang iman</td><td>'+sortScore()+' / '+SORT.length+'</td></tr><tr><td>Studi kasus</td><td>'+caseScore()+' / '+CASES.length+'</td></tr><tr><td>Laporan video Instagram</td><td>'+(videoOk()?'Selesai':'Belum')+'</td></tr></table>';
+    h+='<label class="f" for="outText" style="margin-top:14px">Teks hasil untuk dikirim ke guru<textarea id="outText" class="copybox" readonly></textarea></label>';
+    h+='<div class="btnrow"><button class="btn" id="btnCopy">Salin hasil</button><button class="btn ghost" id="btnReset">Ulangi dari awal</button></div><p class="note" id="copyNote" aria-live="polite">Tempel teks ini ke tempat pengumpulan yang diminta gurumu, misalnya WhatsApp atau ruang kelas daring.</p></div>';
+    var r=$('#result');r.innerHTML=h;r.hidden=false;
+    $('#outText').value=txt;
+    r.scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'});
+  }
+  $('#btnResult').addEventListener('click',showResult);
+  $('#result').addEventListener('click',function(e){
+    if(e.target.closest('#btnCopy')){
+      var ta=$('#outText'),note=$('#copyNote');
+      var fallback=function(){ta.focus();ta.select();var ok=false;try{ok=document.execCommand('copy')}catch(x){}note.textContent=ok?'Hasil tersalin.':'Teks sudah terpilih. Tekan Ctrl+C atau tahan lalu pilih Salin.'};
+      try{if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(ta.value).then(function(){note.textContent='Hasil tersalin.'},fallback)}else fallback()}catch(x){fallback()}
+    }
+    var rb=e.target.closest('#btnReset');
+    if(rb){
+      if(!resetArmed){resetArmed=true;rb.textContent='Yakin? Ketuk lagi untuk mengulang';clearTimeout(resetTimer);resetTimer=setTimeout(function(){resetArmed=false;rb.textContent='Ulangi dari awal'},4000);return}
+      resetArmed=false;
+      state={quizI:0,quiz:[],wrong:{},done:{},sel:null,sortMsg:'',sortCls:'',cases:[]};
+      $('#result').hidden=true;$('#result').innerHTML='';$('#inRefleksi').value='';renderVideo();
+      renderPledges();renderQuiz();renderSort();renderCases();
+      window.scrollTo({top:0,behavior:reduce?'auto':'smooth'});
+    }
+  });
+
+  /* ---------- navigasi ---------- */
+  $$('.steps button').forEach(function(b){b.addEventListener('click',function(){
+    var el=$('#s-'+b.dataset.t);if(el)el.scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'});
+  })});
+
+  renderVideo();renderPledges();renderQuiz();renderSort();renderCases();update();
+})();
+</script>
+
+</body>
+</html>
